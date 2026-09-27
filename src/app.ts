@@ -35,6 +35,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(clerkMiddleware(clerkOptions));
 
+app.get('/', (_req, res) => {
+  sendSuccessResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: 'Portfolio API is running',
+    data: {
+      name: 'API',
+      version: '1.0.0',
+      endpoints: {
+        health: '/api/v1/health',
+      },
+    },
+  });
+});
+
 // Static route — MUST be declared before the dynamic /api/v1 router
 app.get('/api/v1/health', (_req, res) => {
   sendSuccessResponse(res, {
